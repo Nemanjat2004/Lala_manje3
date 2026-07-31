@@ -1,1 +1,96 @@
-<h1>Stiže iznenađenje! ❤️</h1>
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Za moju devojku ❤️</title>
+    <!-- Povezujemo CSS iz foldera css -->
+    <link rel="stylesheet" href="css/index_style.css">
+</head>
+<body>
+    <div class="container" id="lock-container">
+        <!-- Hint poruka koja je na početku sakrivena -->
+        <h2 id="hint" class="hidden">Najposebniji dan... ❤️</h2>
+        
+        <!-- Tačkice koje se boje kad se unese broj -->
+        <div class="dots-container">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+
+        <!-- Brojčanik -->
+        <div class="numpad">
+            <button class="num-btn" onclick="press(1)">1</button>
+            <button class="num-btn" onclick="press(2)">2</button>
+            <button class="num-btn" onclick="press(3)">3</button>
+            <button class="num-btn" onclick="press(4)">4</button>
+            <button class="num-btn" onclick="press(5)">5</button>
+            <button class="num-btn" onclick="press(6)">6</button>
+            <button class="num-btn" onclick="press(7)">7</button>
+            <button class="num-btn" onclick="press(8)">8</button>
+            <button class="num-btn" onclick="press(9)">9</button>
+            <div class="empty"></div> <!-- Prazan prostor dole levo -->
+            <button class="num-btn" onclick="press(0)">0</button>
+            <button class="del-btn" onclick="del()">⌫</button> <!-- Dugme za brisanje -->
+        </div>
+    </div>
+
+    <script>
+        let trenutniUnos = "";
+        const tacnaSifra = "1901"; // Vaša mesečnica
+
+        function azurirajTackice() {
+            const tackice = document.querySelectorAll('.dot');
+            tackice.forEach((tackica, index) => {
+                if (index < trenutniUnos.length) {
+                    tackica.classList.add('filled');
+                } else {
+                    tackica.classList.remove('filled');
+                }
+            });
+        }
+
+        function press(broj) {
+            if (trenutniUnos.length < 4) {
+                trenutniUnos += broj;
+                azurirajTackice();
+
+                // Kada unese 4 cifre, proveravamo
+                if (trenutniUnos.length === 4) {
+                    setTimeout(proveriSifru, 150); // Kratka pauza da bi videla da se obojila 4. tačkica
+                }
+            }
+        }
+
+        function del() {
+            if (trenutniUnos.length > 0) {
+                trenutniUnos = trenutniUnos.slice(0, -1); // Briše poslednji broj
+                azurirajTackice();
+            }
+        }
+
+        function proveriSifru() {
+            if (trenutniUnos === tacnaSifra) {
+                alert("JEEEEE"); // Za sada ovo, kasnije menjamo u prelazak na drugu stranicu!
+            } else {
+                // Ako je pogrešila šifru
+                const container = document.getElementById('lock-container');
+                const hint = document.getElementById('hint');
+                
+                container.classList.add('shake'); // Trese se ekran
+                hint.classList.remove('hidden');
+                hint.classList.add('show'); // Prikazuje hint
+
+                // Posle pola sekunde smirujemo ekran i brišemo tačkice
+                setTimeout(() => {
+                    container.classList.remove('shake');
+                    trenutniUnos = "";
+                    azurirajTackice();
+                }, 500);
+            }
+        }
+    </script>
+</body>
+</html>
