@@ -134,7 +134,7 @@ ul {
 /* DODALI SMO PISANI FONT */
 .text-page p {
   font-family: "Dancing Script", cursive;
-  font-size: 18px; /* Pisani fontovi moraju biti malo veći da bi se lako čitali */
+  font-size: 16px; /* Pisani fontovi moraju biti malo veći da bi se lako čitali */
   margin-bottom: 15px;
   line-height: 1.3;
 }
