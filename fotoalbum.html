@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Za moju devojku ❤️ - Fotoalbum</title>
-    <!-- Ubacujemo prelep pisani font sa Google-a -->
     <link
       href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&display=swap"
       rel="stylesheet"
@@ -15,7 +14,6 @@
     <a href="meni.html" class="back-btn">⬅ Nazad na meni</a>
 
     <div class="album-container">
-      <!-- Knjiga -->
       <div id="book" class="book">
         <!-- LIST 1: Korica -->
         <div class="paper" id="p1" style="z-index: 100">
@@ -26,7 +24,7 @@
           <div class="back"></div>
         </div>
 
-        <!-- LIST 2: Tekst posvete (Deo 1 i Deo 2) -->
+        <!-- LIST 2: Tekst posvete -->
         <div class="paper" id="p2" style="z-index: 99">
           <div class="front text-page">
             <p>Moja najdivnija,</p>
@@ -38,7 +36,6 @@
               si bila tu kad sam bio ljut, nervozan ili tužan.
             </p>
           </div>
-          <!-- Na poleđini drugog lista nastavljamo tekst -->
           <div class="back text-page">
             <p>
               Hvala ti što si moj najveći oslonac i najlepši deo svakog mog
@@ -55,7 +52,6 @@
         </div>
       </div>
 
-      <!-- Dugmići za listanje -->
       <div class="controls">
         <button onclick="prevPage()">⬅ Prethodna</button>
         <button onclick="nextPage()">Sledeća ➡</button>
@@ -63,15 +59,15 @@
     </div>
 
     <script>
-      const ukupanBrojSlika = 30; // Promeni na tvoj stvaran broj slika
+      const ukupanBrojSlika = 30; // Tvoj broj slika
 
       const book = document.getElementById("book");
       let trenutnaStrana = 1;
-      let brojStrana = 2; // Imamo p1 i p2 već u HTML-u
+      let brojStrana = 2;
 
       let trenutniZIndex = 98;
 
-      // --- SADA PETLJA KREĆE OD SLIKE 1.jpg (i = 1) ---
+      // VRAĆENA STARA LOGIKA: 2 SLIKE PO PAPIRU
       for (let i = 1; i <= ukupanBrojSlika; i += 2) {
         brojStrana++;
 
@@ -86,19 +82,19 @@
         paper.style.zIndex = trenutniZIndex;
 
         paper.innerHTML = `
-                <div class="front img-page">
-                    <img src="imgs/${i}.jpg" class="album-img">
-                </div>
-                <div class="back img-page">
-                    ${backSlika}
-                </div>
-            `;
+            <div class="front img-page">
+                <img src="imgs/${i}.jpg" class="album-img">
+            </div>
+            <div class="back img-page">
+                ${backSlika}
+            </div>
+        `;
 
         book.appendChild(paper);
         trenutniZIndex--;
       }
 
-      // --- DODAVANJE POSLEDNJE STRANICE (Zadnja korica) ---
+      // ZADNJA KORICA
       brojStrana++;
       let poslednjaStrana = document.createElement("div");
       poslednjaStrana.className = "paper";
@@ -109,13 +105,11 @@
             <div class="front"></div>
             <div class="back" style="display: flex; flex-direction: column; justify-content: center; align-items: center; background: #fafafa; border-radius: 10px 0 0 10px;">
                 <img src="https://www.onlygfx.com/wp-content/uploads/2016/05/hand-drawn-heart-4.png" alt="Srce" style="width: 140px; margin-bottom: 15px; opacity: 0.9;">
-                <h2 style="font-family: 'Dancing Script', cursive; font-style: italic; color: #d4af37; font-size: 42px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">Miss you Bejb,<br>Love you</h2>
+                <h2 style="font-family: 'Dancing Script', cursive; font-style: italic; color: #d4af37; font-size: 32px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); text-align: center;">Miss you Bejb,<br>Love you</h2>
             </div>
         `;
       book.appendChild(poslednjaStrana);
-      // ----------------------------------------------------
 
-      // Funkcije za listanje
       function nextPage() {
         if (trenutnaStrana <= brojStrana) {
           const papir = document.getElementById(`p${trenutnaStrana}`);

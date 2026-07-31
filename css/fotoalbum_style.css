@@ -185,3 +185,44 @@ ul {
 .controls button:active {
   transform: translateY(2px);
 }
+
+/* --- MOBILNI TELEFONI (Prava knjiga na punoj širini ekrana) --- */
+@media (max-width: 768px) {
+  /* 1. Širina je 46% ekrana. 
+       Magija: Visinu stavljamo na 69vw (što je tačno 1.5 puta više od širine).
+       Tako zadržavamo savršen oblik (odnos 2:3) i slike se više NE SEKU! */
+  .book {
+    width: 46vw !important;
+    height: 69vw !important;
+    max-height: none !important; /* Uklanjamo limit da bi uvek zadržao proporciju */
+  }
+
+  /* 2. Kada se otvori, knjiga se pomera udesno za TAČNO 23vw (polovinu svoje širine) */
+  .book.open {
+    transform: translateX(23vw) !important;
+  }
+
+  /* 3. Prilagođavamo margine i slova za manji ekran */
+  .text-page {
+    padding: 12px !important;
+  }
+  .text-page p {
+    font-size: 15px !important;
+    margin-bottom: 8px !important;
+    line-height: 1.2 !important;
+  }
+  .text-page .ps {
+    margin-top: 10px !important;
+    font-size: 13px !important;
+  }
+  .cover h1 {
+    font-size: 22px !important;
+    margin-bottom: 5px !important;
+  }
+  .cover p {
+    font-size: 14px !important;
+  }
+  .album-img {
+    border-radius: 4px !important;
+  }
+}
