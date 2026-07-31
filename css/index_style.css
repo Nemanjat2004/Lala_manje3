@@ -1,0 +1,110 @@
+/* Osnovna podešavanja */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    /* Prelep prelaz iz nežne zelene u nežnu plavu */
+    background: linear-gradient(135deg, #e8f5e9, #e1f5fe);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Da nema skrolovanja */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px); /* Efekat zamućenja stakla */
+}
+
+/* Hint tekst iznad tačkica */
+#hint {
+    color: #4db6ac; /* Zagasitija nežna zelena */
+    font-size: 16px;
+    margin-bottom: 20px;
+    height: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#hint.show {
+    opacity: 1;
+}
+
+/* Stil za 4 tačkice */
+.dots-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #81c784; /* Zeleni okvir */
+    background-color: transparent;
+    transition: all 0.2s ease;
+}
+
+.dot.filled {
+    background-color: #64b5f6; /* Plava boja unutra kada se popuni */
+    border-color: #64b5f6;
+}
+
+/* Brojčanik */
+.numpad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.num-btn, .del-btn {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: none;
+    background-color: white;
+    font-size: 24px;
+    color: #455a64;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Šta se dešava kad se klikne dugme */
+.num-btn:active, .del-btn:active {
+    background-color: #b3e5fc; /* Nežno plava kad se stisne */
+    transform: scale(0.92); /* Malo se smanji, efekat klika */
+}
+
+.del-btn {
+    color: #e57373; /* Blago crvena za brisanje */
+    font-size: 22px;
+}
+
+/* Animacija za grešku (tresenje ekrana) */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    50% { transform: translateX(8px); }
+    75% { transform: translateX(-8px); }
+    100% { transform: translateX(0); }
+}
+
+.shake {
+    animation: shake 0.4s ease-in-out;
+}
