@@ -1,96 +1,146 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="sr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Za moju devojku ❤️</title>
-    <!-- Povezujemo CSS iz foldera css -->
-    <link rel="stylesheet" href="css/index_style.css">
-</head>
-<body>
-    <div class="container" id="lock-container">
-        <!-- Hint poruka koja je na početku sakrivena -->
-        <h2 id="hint" class="hidden">Najposebniji dan... ❤️</h2>
-        
-        <!-- Tačkice koje se boje kad se unese broj -->
-        <div class="dots-container">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-        </div>
+    <link rel="stylesheet" href="css/index_style.css" />
+  </head>
+  <body>
+    <!-- Kontejner gde će padati stikeri -->
+    <div id="stickers-container"></div>
 
-        <!-- Brojčanik -->
-        <div class="numpad">
-            <button class="num-btn" onclick="press(1)">1</button>
-            <button class="num-btn" onclick="press(2)">2</button>
-            <button class="num-btn" onclick="press(3)">3</button>
-            <button class="num-btn" onclick="press(4)">4</button>
-            <button class="num-btn" onclick="press(5)">5</button>
-            <button class="num-btn" onclick="press(6)">6</button>
-            <button class="num-btn" onclick="press(7)">7</button>
-            <button class="num-btn" onclick="press(8)">8</button>
-            <button class="num-btn" onclick="press(9)">9</button>
-            <div class="empty"></div> <!-- Prazan prostor dole levo -->
-            <button class="num-btn" onclick="press(0)">0</button>
-            <button class="del-btn" onclick="del()">⌫</button> <!-- Dugme za brisanje -->
-        </div>
+    <div class="container" id="lock-container">
+      <!-- Hint poruka -->
+      <h2 id="hint" class="hidden">Najposebniji dan... ❤️</h2>
+
+      <!-- Tačkice -->
+      <div class="dots-container">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+
+      <!-- Brojčanik -->
+      <div class="numpad">
+        <button class="num-btn" onclick="press(1)">1</button>
+        <button class="num-btn" onclick="press(2)">2</button>
+        <button class="num-btn" onclick="press(3)">3</button>
+        <button class="num-btn" onclick="press(4)">4</button>
+        <button class="num-btn" onclick="press(5)">5</button>
+        <button class="num-btn" onclick="press(6)">6</button>
+        <button class="num-btn" onclick="press(7)">7</button>
+        <button class="num-btn" onclick="press(8)">8</button>
+        <button class="num-btn" onclick="press(9)">9</button>
+        <div class="empty"></div>
+        <button class="num-btn" onclick="press(0)">0</button>
+        <button class="del-btn" onclick="del()">⌫</button>
+      </div>
     </div>
 
     <script>
-        let trenutniUnos = "";
-        const tacnaSifra = "1901"; // Vaša mesečnica
+      let trenutniUnos = "";
+      const tacnaSifra = "1901";
 
-        function azurirajTackice() {
-            const tackice = document.querySelectorAll('.dot');
-            tackice.forEach((tackica, index) => {
-                if (index < trenutniUnos.length) {
-                    tackica.classList.add('filled');
-                } else {
-                    tackica.classList.remove('filled');
-                }
-            });
+      // Niz poruka koje postaju sve agresivnije
+      // Niz poruka koje postaju sve agresivnije
+      const porukeHint = [
+        "Najposebniji dan... ❤️",
+        "Bukvalno naš dan bejb! 🥺",
+        "Okej bejb, NAŠ dan, seti se!",
+        "Beeeejb, koji je naš dan?!",
+        "LJUDIII BEEEJB 😭",
+        "Alo, 19.01. bejb, zvaću policiju! 🚨",
+        "BEEEJB PUKUŠAVAŠ LI TI UOPŠTE?! 🤯",
+        "Bejb mene ne voli... 💔",
+        "Odustajem... bejb ne zna kad nam je mesečnica. Šifra je 1901. 🙄",
+      ];
+      let brojGresaka = 0;
+
+      function azurirajTackice() {
+        const tackice = document.querySelectorAll(".dot");
+        tackice.forEach((tackica, index) => {
+          if (index < trenutniUnos.length) {
+            tackica.classList.add("filled");
+          } else {
+            tackica.classList.remove("filled");
+          }
+        });
+      }
+
+      function press(broj) {
+        if (trenutniUnos.length < 4) {
+          trenutniUnos += broj;
+          azurirajTackice();
+
+          if (trenutniUnos.length === 4) {
+            setTimeout(proveriSifru, 150);
+          }
         }
+      }
 
-        function press(broj) {
-            if (trenutniUnos.length < 4) {
-                trenutniUnos += broj;
-                azurirajTackice();
-
-                // Kada unese 4 cifre, proveravamo
-                if (trenutniUnos.length === 4) {
-                    setTimeout(proveriSifru, 150); // Kratka pauza da bi videla da se obojila 4. tačkica
-                }
-            }
+      function del() {
+        if (trenutniUnos.length > 0) {
+          trenutniUnos = trenutniUnos.slice(0, -1);
+          azurirajTackice();
         }
+      }
 
-        function del() {
-            if (trenutniUnos.length > 0) {
-                trenutniUnos = trenutniUnos.slice(0, -1); // Briše poslednji broj
-                azurirajTackice();
-            }
+      function proveriSifru() {
+        if (trenutniUnos === tacnaSifra) {
+          // Prebacuje na stranicu sa opcijama kada pogodi!
+          window.location.href = "meni.html";
+        } else {
+          const container = document.getElementById("lock-container");
+          const hint = document.getElementById("hint");
+
+          let indexPoruke = Math.min(brojGresaka, porukeHint.length - 1);
+          hint.innerText = porukeHint[indexPoruke];
+          brojGresaka++;
+
+          container.classList.add("shake");
+          hint.classList.remove("hidden");
+          hint.classList.add("show");
+
+          setTimeout(() => {
+            container.classList.remove("shake");
+            trenutniUnos = "";
+            azurirajTackice();
+          }, 500);
         }
+      }
 
-        function proveriSifru() {
-            if (trenutniUnos === tacnaSifra) {
-                alert("JEEEEE"); // Za sada ovo, kasnije menjamo u prelazak na drugu stranicu!
-            } else {
-                // Ako je pogrešila šifru
-                const container = document.getElementById('lock-container');
-                const hint = document.getElementById('hint');
-                
-                container.classList.add('shake'); // Trese se ekran
-                hint.classList.remove('hidden');
-                hint.classList.add('show'); // Prikazuje hint
+      // --- Logika za kišu stikera ---
+      const slikeStikera = [
+        "https://cdn-icons-png.flaticon.com/512/3790/3790076.png", // slatka maca
+        "https://cdn-icons-png.flaticon.com/512/3069/3069172.png", // zeka
+        "https://cdn-icons-png.flaticon.com/512/3069/3069114.png", // meda
+        "https://cdn-icons-png.flaticon.com/512/3790/3790082.png", // maca 2
+      ];
 
-                // Posle pola sekunde smirujemo ekran i brišemo tačkice
-                setTimeout(() => {
-                    container.classList.remove('shake');
-                    trenutniUnos = "";
-                    azurirajTackice();
-                }, 500);
-            }
+      function napraviKisu() {
+        const kontejner = document.getElementById("stickers-container");
+        const brojStikera = 12; // Koliko stikera pada u isto vreme
+
+        for (let i = 0; i < brojStikera; i++) {
+          let stiker = document.createElement("img");
+          // Biramo nasumičnu sliku iz niza
+          stiker.src =
+            slikeStikera[Math.floor(Math.random() * slikeStikera.length)];
+          stiker.classList.add("stiker");
+
+          // Nasumična pozicija, brzina padanja i kašnjenje da ne padnu svi odjednom
+          stiker.style.left = Math.random() * 95 + "vw";
+          stiker.style.animationDuration = Math.random() * 4 + 6 + "s"; // pada između 6 i 10 sekundi
+          stiker.style.animationDelay = Math.random() * 5 + "s";
+
+          kontejner.appendChild(stiker);
         }
+      }
+
+      // Pokrećemo kišu čim se sajt učita
+      window.onload = napraviKisu;
     </script>
-</body>
+  </body>
 </html>

@@ -1,0 +1,121 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #e8f5e9, #e1f5fe); /* Ista pozadina */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Stikeri */
+#stickers-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.stiker {
+  position: absolute;
+  top: -100px;
+  width: 60px;
+  height: 60px;
+  opacity: 0.85;
+  animation: padanje linear infinite;
+}
+
+@keyframes padanje {
+  0% {
+    transform: translateY(-100px) rotate(-15deg);
+  }
+  100% {
+    transform: translateY(110vh) rotate(15deg);
+  }
+}
+
+/* Meni Kontejner */
+.menu-container {
+  display: flex;
+  gap: 30px;
+  z-index: 10; /* Da bude iznad stikera */
+  padding: 20px;
+  flex-wrap: wrap; /* Da padnu jedno ispod drugog na mobilnom */
+  justify-content: center;
+}
+
+/* Pojedinačna kartica */
+.card {
+  background: rgba(255, 255, 255, 0.7);
+  width: 280px;
+  padding: 40px 20px;
+  border-radius: 20px;
+  text-align: center;
+  text-decoration: none;
+  color: #455a64;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease; /* Za gladak efekat */
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Krug za ikonicu */
+.icon-circle {
+  width: 80px;
+  height: 80px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.card h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #4db6ac;
+  transition: color 0.3s ease;
+}
+
+.card p {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #607d8b;
+  transition: color 0.3s ease;
+}
+
+/* EFEKAT KADA SE PREĐE MIŠEM (HOVER) */
+.card:hover {
+  background-color: #81c784; /* Tvoja nežno zelena */
+  transform: translateY(-10px); /* Malo se podigne gore */
+  box-shadow: 0 15px 35px rgba(129, 199, 132, 0.4); /* Zelena senka */
+}
+
+/* Menjamo boje teksta i kruga na hover da se lepo slaže sa zelenom */
+.card:hover .icon-circle {
+  background-color: transparent;
+  border: 3px solid white;
+}
+
+.card:hover h2,
+.card:hover p {
+  color: white;
+}

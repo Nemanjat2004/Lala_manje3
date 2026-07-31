@@ -1,0 +1,187 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #e8f5e9, #e1f5fe);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+ol,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Dugme nazad */
+.back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  text-decoration: none;
+  color: #4db6ac;
+  font-weight: bold;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: #81c784;
+  color: white;
+}
+
+.album-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* KNJIGA (3D KONTEJNER) */
+.book {
+  width: 320px;
+  height: 480px;
+  position: relative;
+  perspective: 1500px;
+  margin-bottom: 30px;
+  /* Dodajemo tranziciju da knjiga glatko klizi levo-desno */
+  transition: transform 0.5s ease;
+}
+
+.book.open {
+  transform: translateX(160px);
+}
+
+/* LIST PAPIRA */
+.paper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-style: preserve-3d; /* Čuva 3D efekat dece */
+  transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transform-origin: left center; /* Okreće se oko leve ivice, kao prava knjiga */
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 0 10px 10px 0;
+}
+
+/* KADA JE STRANICA OKRENUTA */
+.paper.flipped {
+  transform: rotateY(-180deg);
+}
+
+.front,
+.back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  backface-visibility: hidden;
+  background-color: #fafafa;
+  border-radius: 0 10px 10px 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #eee;
+  overflow: hidden; /* OVO DODAJEMO DA SPREČIMO ISPADANJE TEKSTA ILI SLIKA */
+}
+
+/* Zadnja strana je unapred rotirana kako bi se lepo prikazala kad se papir okrene */
+.back {
+  transform: rotateY(180deg);
+  border-radius: 10px 0 0 10px;
+}
+
+/* STILOVI ZA SADRŽAJ */
+.cover {
+  background: linear-gradient(135deg, #a5d6a7, #81c784);
+  color: white;
+  text-align: center;
+  box-shadow: inset 5px 0 15px rgba(0, 0, 0, 0.05);
+}
+
+.cover h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.cover p {
+  font-size: 18px;
+  font-style: italic;
+}
+
+.text-page {
+  text-align: left;
+  color: #455a64;
+  padding: 30px;
+}
+
+/* DODALI SMO PISANI FONT */
+.text-page p {
+  font-family: "Dancing Script", cursive;
+  font-size: 22px; /* Pisani fontovi moraju biti malo veći da bi se lako čitali */
+  margin-bottom: 15px;
+  line-height: 1.3;
+}
+
+.text-page .ps {
+  font-weight: bold;
+  color: #e57373;
+  margin-top: 25px;
+}
+
+/* STIL ZA SLIKE */
+.img-page {
+  padding: 10px;
+}
+
+.album-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Slika će ispuniti stranicu lepo, iseći će se samo višak */
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* DUGMIĆI KONTROLE */
+.controls {
+  display: flex;
+  gap: 20px;
+}
+
+.controls button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #4db6ac;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 5px 15px rgba(77, 182, 172, 0.3);
+  transition: all 0.2s;
+}
+
+.controls button:hover {
+  background-color: #81c784;
+  transform: translateY(-2px);
+}
+
+.controls button:active {
+  transform: translateY(2px);
+}

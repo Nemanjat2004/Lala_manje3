@@ -1,110 +1,153 @@
 /* Osnovna podešavanja */
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    /* Prelep prelaz iz nežne zelene u nežnu plavu */
-    background: linear-gradient(135deg, #e8f5e9, #e1f5fe);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden; /* Da nema skrolovanja */
+  background: linear-gradient(135deg, #e8f5e9, #e1f5fe);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative; /* Potrebno zbog stikera */
 }
 
+/* Kontejner za kišu stikera (iza svega) */
+#stickers-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Da stikeri ne blokiraju klikove mišem */
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Pojedinačni stiker i njegova animacija */
+.stiker {
+  position: absolute;
+  top: -100px;
+  width: 60px;
+  height: 60px;
+  opacity: 0.85; /* Malo providni da ne bodu oči */
+  animation: padanje linear infinite;
+}
+
+@keyframes padanje {
+  0% {
+    transform: translateY(-100px) rotate(-15deg);
+  }
+  100% {
+    transform: translateY(110vh) rotate(15deg);
+  }
+}
+
+/* Glavni blok za šifru */
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.6);
-    padding: 40px;
-    border-radius: 25px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    backdrop-filter: blur(10px); /* Efekat zamućenja stakla */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.65);
+  padding: 40px;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+  position: relative; /* Da stoji ispred stikera */
+  z-index: 10;
 }
 
-/* Hint tekst iznad tačkica */
 #hint {
-    color: #4db6ac; /* Zagasitija nežna zelena */
-    font-size: 16px;
-    margin-bottom: 20px;
-    height: 20px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  color: #4db6ac;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  height: 25px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-align: center;
 }
 
 #hint.show {
-    opacity: 1;
+  opacity: 1;
 }
 
-/* Stil za 4 tačkice */
 .dots-container {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 30px;
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
 }
 
 .dot {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    border: 2px solid #81c784; /* Zeleni okvir */
-    background-color: transparent;
-    transition: all 0.2s ease;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #81c784;
+  background-color: transparent;
+  transition: all 0.2s ease;
 }
 
 .dot.filled {
-    background-color: #64b5f6; /* Plava boja unutra kada se popuni */
-    border-color: #64b5f6;
+  background-color: #64b5f6;
+  border-color: #64b5f6;
 }
 
-/* Brojčanik */
 .numpad {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
-.num-btn, .del-btn {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    border: none;
-    background-color: white;
-    font-size: 24px;
-    color: #455a64;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
-    transition: all 0.2s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.num-btn,
+.del-btn {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: none;
+  background-color: white;
+  font-size: 24px;
+  color: #455a64;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Šta se dešava kad se klikne dugme */
-.num-btn:active, .del-btn:active {
-    background-color: #b3e5fc; /* Nežno plava kad se stisne */
-    transform: scale(0.92); /* Malo se smanji, efekat klika */
+.num-btn:active,
+.del-btn:active {
+  background-color: #b3e5fc;
+  transform: scale(0.92);
 }
 
 .del-btn {
-    color: #e57373; /* Blago crvena za brisanje */
-    font-size: 22px;
+  color: #e57373;
+  font-size: 22px;
 }
 
-/* Animacija za grešku (tresenje ekrana) */
 @keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-8px); }
-    50% { transform: translateX(8px); }
-    75% { transform: translateX(-8px); }
-    100% { transform: translateX(0); }
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-8px);
+  }
+  50% {
+    transform: translateX(8px);
+  }
+  75% {
+    transform: translateX(-8px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .shake {
-    animation: shake 0.4s ease-in-out;
+  animation: shake 0.4s ease-in-out;
 }

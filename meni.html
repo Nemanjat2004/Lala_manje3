@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="sr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Za moju devojku ❤️ - Meni</title>
+    <link rel="stylesheet" href="css/meni_style.css" />
+  </head>
+  <body>
+    <!-- Kontejner gde padaju stikeri (isti kao na prvoj strani) -->
+    <div id="stickers-container"></div>
+
+    <div class="menu-container">
+      <!-- Kartica 1: Mape -->
+      <a href="mape.html" class="card">
+        <div class="icon-circle">🗺️</div>
+        <h2>Mape</h2>
+        <p>Mesta po Novom Sadu gde smo stvarali naše uspomene.</p>
+      </a>
+
+      <!-- Kartica 2: Fotoalbum -->
+      <a href="fotoalbum.html" class="card">
+        <div class="icon-circle">📷</div>
+        <h2>Fotoalbum</h2>
+        <p>Sve naše najlepše i najsmešnije slike na jednom mestu.</p>
+      </a>
+
+      <!-- Kartica 3: Pesme -->
+      <a href="pesme.html" class="card">
+        <div class="icon-circle">🎵</div>
+        <h2>Pesme</h2>
+        <p>Naša mala plejlista koja nas podseća jedno na drugo.</p>
+      </a>
+    </div>
+
+    <script>
+      // Logika za kišu stikera (ista kao na prošloj)
+      const slikeStikera = [
+        "https://cdn-icons-png.flaticon.com/512/3790/3790076.png",
+        "https://cdn-icons-png.flaticon.com/512/3069/3069172.png",
+        "https://cdn-icons-png.flaticon.com/512/3069/3069114.png",
+        "https://cdn-icons-png.flaticon.com/512/3790/3790082.png",
+      ];
+
+      function napraviKisu() {
+        const kontejner = document.getElementById("stickers-container");
+        const brojStikera = 12;
+
+        for (let i = 0; i < brojStikera; i++) {
+          let stiker = document.createElement("img");
+          stiker.src =
+            slikeStikera[Math.floor(Math.random() * slikeStikera.length)];
+          stiker.classList.add("stiker");
+
+          stiker.style.left = Math.random() * 95 + "vw";
+          stiker.style.animationDuration = Math.random() * 4 + 6 + "s";
+          stiker.style.animationDelay = Math.random() * 5 + "s";
+
+          kontejner.appendChild(stiker);
+        }
+      }
+      window.onload = napraviKisu;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="sr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Za moju devojku ❤️ - Naša Mapa</title>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/mape_style.css" />
+  </head>
+  <body>
+    <a href="meni.html" class="back-btn">⬅ Nazad na meni</a>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+      // 1. KREIRANJE MAPE (Sada je dozvoljeno pomeranje i zumiranje)
+      var map = L.map("map");
+
+      // 2. PRELEPA SVETLA TEMA MAPE
+      L.tileLayer(
+        "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+        {
+          attribution: "&copy; OpenStreetMap",
+          maxZoom: 20,
+        },
+      ).addTo(map);
+
+      // 3. DIZAJN TVOJIH TAČKICA
+      var customIcon = L.divIcon({
+        className: "bejb-tackica",
+        iconSize: [24, 24],
+        iconAnchor: [12, 12],
+        popupAnchor: [0, -12],
+      });
+
+      // 4. TVOJE LOKACIJE (Ažurirana lokacija za "moj bejb")
+      var uspomene = [
+        [45.27164772285864, 19.838104939651966, "imgs/map_1.jpeg", "moj bejb"], // NOVA LOKACIJA
+        [45.24364123674289, 19.83496943965059, "imgs/map_2.jpeg", "tvoj bejb"],
+        [
+          45.25687355622791,
+          19.84508523965115,
+          "imgs/map_3.jpeg",
+          "naš prvi izlazak",
+        ],
+        [
+          45.2566838899366,
+          19.84567578195611,
+          "imgs/map_4.jpeg",
+          "proslava Weba",
+        ],
+        [
+          45.25655405206362,
+          19.845683168487653,
+          "imgs/map_5.jpeg",
+          "naš prvi justdance",
+        ],
+        [
+          45.25514669157439,
+          19.842772668487633,
+          "imgs/map_6.jpeg",
+          "naša prva predstava",
+        ],
+        [
+          45.25814768736645,
+          19.840770345138555,
+          "imgs/map_7.jpeg",
+          "najlepši dan na svetu",
+        ],
+        [
+          45.24848374439817,
+          19.866492422896428,
+          "imgs/map_8.jpeg",
+          "sladak bejb",
+        ],
+        [
+          45.264916753754115,
+          19.828019201884686,
+          "imgs/map_9.jpeg",
+          "naš prvi put",
+        ],
+        [
+          45.25021600392055,
+          19.838755174850387,
+          "imgs/map_10.jpeg",
+          "naše supe",
+        ],
+        [
+          45.24981806104978,
+          19.840806261198423,
+          "imgs/map_11.jpeg",
+          "naš prvi ramen",
+        ],
+        [
+          45.25631066073374,
+          19.84964556797233,
+          "imgs/map_12.jpeg",
+          "najlepši bejb na svetu",
+        ],
+        [
+          45.25916287284034,
+          19.85573490605969,
+          "imgs/map_13.jpeg",
+          "najlepša šetnja",
+        ],
+      ];
+
+      var bounds = [];
+
+      // 5. POSTAVLJANJE TAČKICA NA MAPU
+      uspomene.forEach(function (u) {
+        var lat = u[0];
+        var lng = u[1];
+        var slika = u[2];
+        var tekst = u[3];
+
+        var marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
+
+        var oblacic = `
+                <div class="moj-popup">
+                    <img src="${slika}" alt="Uspomena">
+                    <p>${tekst}</p>
+                </div>
+            `;
+        marker.bindPopup(oblacic);
+
+        bounds.push([lat, lng]);
+      });
+
+      // 6. SAVRŠENO CENTRIRANJE MAPE KAD SE UČITA
+      map.fitBounds(bounds, { padding: [60, 60] });
+    </script>
+  </body>
+</html>

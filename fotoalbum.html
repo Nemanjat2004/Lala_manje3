@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="sr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Za moju devojku ❤️ - Fotoalbum</title>
+    <!-- Ubacujemo prelep pisani font sa Google-a -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/fotoalbum_style.css" />
+  </head>
+  <body>
+    <a href="meni.html" class="back-btn">⬅ Nazad na meni</a>
+
+    <div class="album-container">
+      <!-- Knjiga -->
+      <div id="book" class="book">
+        <!-- LIST 1: Korica -->
+        <div class="paper" id="p1" style="z-index: 100">
+          <div class="front cover">
+            <h1>Photoalbum</h1>
+            <p>moj najlepši bejb ❤️</p>
+          </div>
+          <div class="back"></div>
+        </div>
+
+        <!-- LIST 2: Tekst posvete (Deo 1 i Deo 2) -->
+        <div class="paper" id="p2" style="z-index: 99">
+          <div class="front text-page">
+            <p>Moja najdivnija,</p>
+            <p>
+              Želim da ti se zahvalim na svemu što si učinila za mene, i da
+              gledaš na ovo kao na moje hvala za svaki tvoj doručak, svaki
+              ručak, svaki poklon, svako iznenađenje svaki put kad si me
+              nasmejala, svaki put kad si otišla sa mnom na kafu i svaki put kad
+              si bila tu kad sam bio ljut, nervozan ili tužan.
+            </p>
+          </div>
+          <!-- Na poleđini drugog lista nastavljamo tekst -->
+          <div class="back text-page">
+            <p>
+              Hvala ti što si moj najveći oslonac i najlepši deo svakog mog
+              dana.
+            </p>
+            <p>
+              Ovo je najmanje, ali i najzahtevnije što sam uspeo da smislim kao
+              poklon za tebe.
+            </p>
+            <p class="ps">
+              P.S. Ovo je apsolutno takmičenje gledala ti na ovo tako ili ne! 🏆
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dugmići za listanje -->
+      <div class="controls">
+        <button onclick="prevPage()">⬅ Prethodna</button>
+        <button onclick="nextPage()">Sledeća ➡</button>
+      </div>
+    </div>
+
+    <script>
+      const ukupanBrojSlika = 10; // Promeni na tvoj stvaran broj slika
+
+      const book = document.getElementById("book");
+      let trenutnaStrana = 1;
+      let brojStrana = 2; // Imamo p1 i p2 već u HTML-u
+
+      let trenutniZIndex = 98;
+
+      // --- SADA PETLJA KREĆE OD SLIKE 1.jpg (i = 1) ---
+      for (let i = 1; i <= ukupanBrojSlika; i += 2) {
+        brojStrana++;
+
+        let backSlika =
+          i + 1 <= ukupanBrojSlika
+            ? `<img src="imgs/${i + 1}.jpg" class="album-img">`
+            : ``;
+
+        let paper = document.createElement("div");
+        paper.className = "paper";
+        paper.id = `p${brojStrana}`;
+        paper.style.zIndex = trenutniZIndex;
+
+        paper.innerHTML = `
+                <div class="front img-page">
+                    <img src="imgs/${i}.jpg" class="album-img">
+                </div>
+                <div class="back img-page">
+                    ${backSlika}
+                </div>
+            `;
+
+        book.appendChild(paper);
+        trenutniZIndex--;
+      }
+
+      // --- DODAVANJE POSLEDNJE STRANICE (Zadnja korica) ---
+      brojStrana++;
+      let poslednjaStrana = document.createElement("div");
+      poslednjaStrana.className = "paper";
+      poslednjaStrana.id = `p${brojStrana}`;
+      poslednjaStrana.style.zIndex = trenutniZIndex--;
+
+      poslednjaStrana.innerHTML = `
+            <div class="front"></div>
+            <div class="back" style="display: flex; flex-direction: column; justify-content: center; align-items: center; background: #fafafa; border-radius: 10px 0 0 10px;">
+                <img src="https://www.onlygfx.com/wp-content/uploads/2016/05/hand-drawn-heart-4.png" alt="Srce" style="width: 140px; margin-bottom: 15px; opacity: 0.9;">
+                <h2 style="font-family: 'Dancing Script', cursive; font-style: italic; color: #d4af37; font-size: 42px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">Miss you, Laro</h2>
+            </div>
+        `;
+      book.appendChild(poslednjaStrana);
+      // ----------------------------------------------------
+
+      // Funkcije za listanje
+      function nextPage() {
+        if (trenutnaStrana <= brojStrana) {
+          const papir = document.getElementById(`p${trenutnaStrana}`);
+          papir.classList.add("flipped");
+
+          let trenutni = trenutnaStrana;
+          setTimeout(() => {
+            papir.style.zIndex = trenutni;
+          }, 400);
+
+          if (trenutnaStrana === 1) {
+            book.classList.add("open");
+          }
+
+          trenutnaStrana++;
+        }
+      }
+
+      function prevPage() {
+        if (trenutnaStrana > 1) {
+          trenutnaStrana--;
+          const papir = document.getElementById(`p${trenutnaStrana}`);
+          papir.classList.remove("flipped");
+
+          papir.style.zIndex = 100 - trenutnaStrana + 1;
+
+          if (trenutnaStrana === 1) {
+            book.classList.remove("open");
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
